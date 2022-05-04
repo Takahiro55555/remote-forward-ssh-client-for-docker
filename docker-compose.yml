@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  web-server:
+    image: nginx
+    container_name: web-server
+    restart: always
+
+  proxy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: reverse-proxy
+    restart: always
+    volumes:
+      - ./path/to/identity/file:/root/.ssh/id_rsa:ro
+    env_file:
+      - ./proxy-variables.env
+    depends_on:
+      - web-server
