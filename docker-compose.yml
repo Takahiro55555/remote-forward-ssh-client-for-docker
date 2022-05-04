@@ -6,13 +6,14 @@ services:
     restart: always
 
   proxy:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: ghcr.io/takahiro55555/remote-forward-ssh-client:latest
     container_name: reverse-proxy
     restart: always
     volumes:
       - ./path/to/identity/file:/root/.ssh/id_rsa:ro
+    environment:
+      - TARGET_HOST=web-server  # 通信の転送先コンテナ名
+      - TARGET_PORT=80
     env_file:
       - ./proxy-variables.env
     depends_on:
