@@ -1,6 +1,7 @@
 FROM debian:bullseye-slim
 
 RUN apt-get update; \
+    apt-get -y upgrade; \
     apt-get -y install --no-install-recommends \
     autossh; \
     apt-get clean
